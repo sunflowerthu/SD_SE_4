@@ -1,14 +1,22 @@
 plugins {
-    kotlin("jvm") version "2.1.20"
+    id("org.springframework.boot") version "3.2.0" apply false
+    kotlin("jvm") version "1.9.20" apply false
+    kotlin("plugin.spring") version "1.9.20" apply false
+    kotlin("plugin.jpa") version "1.9.20" apply false
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+allprojects {
+    group = "org.example.ecommerce"
+    version = "1.0.0"
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenCentral()
+    }
 
-dependencies {
-    testImplementation(kotlin("test"))
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "17"
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+        }
+    }
 }
